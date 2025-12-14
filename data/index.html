@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <style>
+       html {
+          height: 100%;
+          margin: 0;
+       }
+       body {
+          font-family: Verdana;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between; 
+          text-align: center;
+          color: #4c5d6d;
+          margin: 0;
+       }
+       h1 {
+         border-top: 1px solid lightgray;
+         border-bottom: 1px solid lightgray;
+         text-transform: uppercase;
+         margin: 0.5rem;
+         background-color: #fafaff;
+       }
+       strong {
+          font-weight: normal;
+       }
+       p {
+          padding-top: 0;
+          margin-top: 0;
+          margin: 0;
+       }
+       .logo {  
+          padding: 1em;        
+          justify-content: end;
+       }
+       :not(form>) input[type=text], :not(form>) input[type=password], :not(form>) button { 
+          width: 20%;
+          height: 2em;
+          text-align: center;
+          /*border: 1px solid gray;*/
+          padding: 0 0.3em; 
+          margin: 0.3em;
+          font-size: 1em;
+          -moz-box-sizing: content-box; /* or `border-box` */
+          -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+       }
+       .content {
+          flex: 1 0 auto;
+       }
+       footer {
+          flex: 0 0 auto;
+          text-align: left;
+          padding: 0 0 1em 1em;
+          font-weight: bolder;
+          font-size: 0.8em;
+       }
+       .devices table td {
+          width: 20%;
+          cursor: pointer;
+       }
+       .devices table td:hover {
+         background-color: aliceblue;
+         font-weight: bold;
+       }
+
+#pins input {
+   width: 5em;
+   cursor: pointer;
+   padding: 0;
+   border: 0;
+   font-weight: bold;
+   color: #4c5d6d;
+   border-bottom: 1px solid gray;
+   background: url(free-icon-led-2338838.png) no-repeat scroll -5px 0px;
+
+   height: 2em;
+   text-align: center;
+   margin: 0.3em;
+   font-size: 1em;
+   -moz-box-sizing: content-box; /* or `border-box` */
+   -webkit-box-sizing: content-box;
+   box-sizing: content-box;
+}
+
+#pins input:placeholder-shown {
+   color: lightgray;
+}
+
+#pins input:focus {
+   background: url(free-icon-led-2338806.png) no-repeat scroll -5px 0px;
+   outline: 2px dashed red;
+   background-color: rgba(250, 10, 10, 0.1);
+   border-bottom: none;
+}
+       
+.cards { 
+  display: flex;
+  column-gap: 2rem;
+  align-items: start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cards .card {
+  max-width: 15em;
+  height: fit-content;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 0.5em;
+}
+.cards .card.nconn {
+   background-color: rgba(255, 255, 0, 0.1);
+}
+.cards .card.conn {
+   background-color: rgba(0, 255, 0, 0.1);
+}
+.cards .card.init {
+   background-color: rgba(0, 0, 255, 0.1);
+}
+.cards .card.sel {
+   background-color: rgba(0, 0, 255, 0.1);
+}
+.cards .card:hover {
+  cursor: pointer;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0.6, 0.2);
+  transition: box-shadow 0.3s, transform 0.3s;
+  transform: scale(1.05);
+}
+.cards .card .card-hero img {
+  width: 5em;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.cards .card .card-header {
+  padding: 0px 6px;
+}
+.card-header h3 {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 1em;
+}
+.cards .card .card-body {
+  padding: 0.5em 1em;
+  margin: 0;
+  font-size: 0.5em;
+}
+form .fields{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0.5em 2em;
+}
+form .fields .input-field{
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.input-field label{
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.input-field input, select{
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 42px;
+    margin: 8px 0;
+}
+.input-field input :focus,
+.input-field select:focus{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.input-field select,
+.input-field input[type="date"]{
+    color: #707070;
+}
+.input-field input[type="date"]:valid{
+    color: #333;
+}
+
+.toggle {
+    --width: 56px;
+    --height: calc(var(--width) / 2);
+    --border-radius: calc(var(--height) / 2);
+    margin: 8px auto;
+    padding: 8px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toggle__input {
+    display: none;
+}
+
+.toggle__fill {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    background: #dddddd;
+    transition: background 0.2s;
+}
+
+.toggle__fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: var(--height);
+    width: var(--height);
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: var(--border-radius);
+    transition: transform 0.2s;
+}
+
+.toggle__input:checked ~ .toggle__fill {
+    background: steelblue;
+}
+
+.toggle__input:checked ~ .toggle__fill::after {
+    transform: translateX(var(--height));
+}
+
+#clock {
+   position: absolute;
+   right: 1em;
+   top: 1em;
+   font-size: 1.2em;
+   margin: 0;
+   text-align: right;
+}
+
+#clock p {
+   font-size: 0.8rem;
+   font-weight: normal;
+}
+
+#clock svg {
+   height: 0.8em;
+}
+
+#tab {
+   text-align: left;
+   margin: 0 auto;
+}
+
+#tab td:nth-child(1) {
+   width: 10em;
+}
+#tab td:nth-child(2) {
+   width: 7em;
+}
+#tab td:nth-child(3) {
+   width: 40em;
+}
+#tab tbody {
+   font-family: monospace;
+}
+#tab td, #tab th {
+   border-bottom: 1px solid lightgray;
+}
+
+.save {
+   height: 1em; 
+   position: absolute; 
+   right: 1em;
+   opacity: 0.5;
+   cursor: pointer;
+   margin-top: 0.1em;
+}
+
+.save:hover {
+   opacity: 1.0;
+}
+
+.places {
+   margin: 0.5rem;
+}
+
+#data {
+   width: 100%;
+   outline: none;
+   border: none;
+   padding: 0.5rem;
+   background-color: wheat;
+   box-sizing: border-box;
+   color: gray;
+}
+
+@media only screen and (max-width: 1100px) {
+  .cards .card {
+    max-width: 280px;
+  }
+  form .fields .input-field{
+    width: calc(100% / 3 - 15px);
+  }
+}
+@media only screen and (max-width: 920px) {
+  .cards {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    grid-template-columns: 1fr;
+  }
+  .cards .card {
+    max-width: 400px;
+  }
+  form .fields .input-field{
+    width: calc(100% / 2 - 15px);
+  }
+}
+@media only screen and (max-width: 500px) {
+  .cards {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    grid-template-columns: 1fr;
+  }
+  .cards .card {
+    max-width: 320px;
+  }
+  form .fields .input-field{
+    width: calc(100% - 15px);
+  }
+}
+    </style>
+  </head>
+  <body>
+      <section class="content">
+      <p class="logo">
+         <svg style="height: 10em"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:cc="http://creativecommons.org/ns#"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+            width="463.44001464843745"
+            height="304.21269897586575"
+            viewBox="0 0 350 229.74806075458076"
+            class="css-1j8o68f"
+            version="1.1"
+            id="svg40"
+            sodipodi:docname="logo1.svg"
+            inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)">
+           <defs
+              id="SvgjsDefs1585" />
+           <g
+              id="SvgjsG1586"
+              featurekey="symbolFeature-0"
+              transform="matrix(1.7059114454538358,0,0,1.7059114454538358,89.70443260796002,-15.295416091834346)"
+              fill="#4c5d6d">
+             <g
+                transform="translate(0,-952.36218)"
+                id="g31">
+               <path
+                  d="m 79.012946,973.34925 c -0.390536,-0.39053 -1.023679,-0.39053 -1.414213,0 l -5.656851,5.65685 c -0.390542,0.39055 -0.390537,1.02368 -3e-6,1.41422 0.390536,0.39053 1.023679,0.39053 1.414214,-10e-6 l 5.65685,-5.65684 c 0.390542,-0.39055 0.390537,-1.02368 3e-6,-1.41422 z M 50.728712,961.63783 c -0.181082,-0.18111 -0.430994,-0.30934 -0.707128,-0.30942 -0.552248,-10e-6 -1.016465,0.46421 -1.016469,1.01647 l -3.4e-5,7.9991 c -7e-5,0.55233 0.464216,1.01661 1.016537,1.01654 0.552109,-1.4e-4 1.016258,-0.46429 1.016466,-1.01646 l -3.3e-5,-7.99919 c 7e-5,-0.27613 -0.12845,-0.52618 -0.309325,-0.70707 z m 39.995655,39.99567 c -0.180965,-0.1809 -0.43091,-0.3093 -0.707045,-0.3094 l -7.999182,0 c -0.552176,2e-4 -1.016326,0.4643 -1.016466,1.0165 -7.1e-5,0.5523 0.464215,1.0166 1.016536,1.0165 l 7.999113,0 c 0.552246,0 1.016462,-0.4643 1.016465,-1.0165 -6e-6,-0.2762 -0.128305,-0.5261 -0.309398,-0.7071 z M 67.69924,984.66296 c -8.989025,-8.98903 -24.659197,-10.69615 -34.537747,-0.8176 -6.315513,6.31552 -7.811102,12.63611 -8.77256,18.23014 -0.961481,5.594 -1.434228,10.3614 -5.480063,14.4072 l -8.485277,8.4853 c -2.0125672,2.0126 -1.872509,5.1986 -3.8e-5,7.0711 l 1.414223,1.4142 -0.707093,0.7071 c -1.94645,1.9464 -1.9464656,5.1246 1.2e-5,7.071 1.946429,1.9465 5.124603,1.9465 7.071053,1e-4 l 0.707093,-0.7071 1.414223,1.4142 c 1.872497,1.8724 5.058512,2.0125 7.071053,0 l 8.485278,-8.4853 c 4.045884,-4.0459 8.813306,-4.5186 14.407334,-5.4801 5.593976,-0.9614 11.914573,-2.457 18.230125,-8.7726 9.878526,-9.8785 8.171403,-25.54861 -0.817616,-34.53764 z m -1.414218,1.41422 c 8.257598,8.25758 9.864473,22.66242 0.817585,31.70932 -5.962565,5.9625 -11.641044,7.2736 -17.14734,8.2201 -5.216441,0.8965 -10.364391,1.4257 -14.760893,5.3474 l -14.186293,-14.1861 c 3.921784,-4.3966 4.450911,-9.5446 5.347527,-14.761 0.9464,-5.50626 2.257505,-11.18473 8.220096,-17.14732 9.046884,-9.04689 23.451725,-7.44 31.709318,0.8176 z m -5.126525,2.12132 c -7.063856,-5.58812 -17.347894,-5.10275 -23.864852,1.41421 -1.30157,1.30157 -2.362251,2.74098 -3.181997,4.28677 -0.248764,0.46868 -0.04879,1.1434 0.419877,1.39216 0.468513,0.24879 1.121191,0.0266 1.370018,-0.44187 0.72882,-1.37483 1.648291,-2.66482 2.806315,-3.82285 5.808484,-5.80848 14.953929,-6.22865 21.2353,-1.25953 0.399169,0.34131 1.072893,0.31078 1.414216,-0.0884 0.479391,-0.6706 0.276683,-1.06157 -0.198877,-1.4805 z M 22.444405,973.34925 c -0.390539,-0.39053 -1.023679,-0.39054 -1.414215,0 -0.390533,0.39053 -0.390537,1.02368 3e-6,1.41421 l 5.656849,5.65686 c 0.39054,0.39053 1.023683,0.39053 1.414216,0 0.390536,-0.39054 0.390536,-1.02368 2e-6,-1.41422 l -5.656855,-5.65685 z m 50.911681,50.91165 c -0.390508,-0.3906 -1.023666,-0.3905 -1.414205,0 -0.390539,0.3905 -0.390541,1.0237 1.9e-5,1.4142 l 5.656841,5.6568 c 0.390534,0.3906 1.023641,0.3907 1.414206,0 0.390538,-0.3905 0.390515,-1.0236 3.2e-5,-1.4142 l -5.656893,-5.6568 z m -53.740137,-5.6568 14.142131,14.1421 -4.242614,4.2426 -14.14213,-14.1421 4.242613,-4.2426 z m -5.656852,5.6568 14.142131,14.1422 -2.121281,2.1212 c -1.237459,1.2375 -3.130472,1.1123 -4.242693,10e-5 l -9.89946,-9.8996 c -1.11222,-1.1121 -1.237436,-3.0051 -2.9e-5,-4.2425 l 2.121332,-2.1214 z m -0.70707,10.6065 4.242645,4.2427 -0.707145,0.7072 c -1.187421,1.1874 -3.055176,1.1874 -4.242642,0 -1.187466,-1.1874 -1.187423,-3.0553 -2e-6,-4.2427 l 0.707144,-0.7072 z"
+                  fill="#4c5d6d"
+                  fill-opacity="1"
+                  stroke="none"
+                  marker="none"
+                  visibility="visible"
+                  display="inline"
+                  overflow="visible"
+                  id="path29" />
+             </g>
+           </g>
+           <g
+              id="SvgjsG1587"
+              featurekey="fiAKjI-0"
+              transform="matrix(2.73522961578643,0,0,2.73522961578643,-2.297593294623519,143.53391906939518)"
+              fill="#4c5d6d">
+             <path
+                d="M6.46 16.18 l-2.52 0 l0 3.82 l-3.1 0 l0 -13.7 l5.9 0 c3.12 0 4.88 2.18 4.88 4.84 c0 2.8 -1.94 5.04 -5.16 5.04 z M6.28 9.14 l-2.34 0 l0 4.2 l2.44 0 c1.32 0 2.12 -0.88 2.12 -2.12 s-0.78 -2.08 -2.22 -2.08 z M18.82 20.24 c-3.84 0 -5.94 -2.28 -5.94 -5.68 l0 -8.26 l3.1 0 l0 7.84 c0 2.08 1.02 3.22 2.82 3.22 c1.78 0 2.78 -1.14 2.78 -3.22 l0 -7.84 l3.1 0 l0 8.26 c0 3.4 -2.08 5.68 -5.86 5.68 z M32.92 20 l-3.1 0 l0 -10.86 l-4.08 0 l0 -2.84 l11.26 0 l0 2.84 l-4.08 0 l0 10.86 z M48.72 20 l-3.1 0 l0 -10.86 l-4.08 0 l0 -2.84 l11.26 0 l0 2.84 l-4.08 0 l0 10.86 z M60.879999999999995 20.28 c-4 0 -7.26 -3.06 -7.26 -7.12 c0 -4.08 3.26 -7.14 7.26 -7.14 c4.1 0 7.26 3.06 7.26 7.12 c0 4.08 -3.16 7.14 -7.26 7.14 z M60.879999999999995 17.4 c2.32 0 4.1 -1.84 4.1 -4.26 c0 -2.38 -1.78 -4.24 -4.1 -4.24 s-4.1 1.86 -4.1 4.26 s1.78 4.24 4.1 4.24 z M73.44 20 l0 -13.7 l3.1 0 l0 10.86 l6.36 0 l0 2.84 l-9.46 0 z M87.41999999999999 20 l-3.1 0 l0 -13.7 l3.1 0 l0 13.7 z M103.08 13.120000000000001 c0 4.1 -2.84 7.16 -6.94 7.16 c-4.34 0 -7.38 -3.18 -7.38 -7.14 c0 -3.9 2.94 -7.12 7.38 -7.12 c2.56 0 4.54 1.04 5.78 2.82 l-2.28 1.94 c-0.92 -1.16 -2.06 -1.86 -3.5 -1.86 c-2.38 0 -4.22 1.76 -4.22 4.3 c0 2.4 1.72 4.18 4.14 4.18 c1.84 0 3.04 -0.92 3.56 -2.38 l-3.64 0 l0 -2.7 l7.1 0 l0 0.8 z M113.3 20 l0 -5.36 l-5.8 0 l0 5.36 l-3.1 0 l0 -13.7 l3.1 0 l0 5.5 l5.8 0 l0 -5.5 l3.1 0 l0 13.7 l-3.1 0 z M124.72000000000001 20 l-3.1 0 l0 -10.86 l-4.08 0 l0 -2.84 l11.26 0 l0 2.84 l-4.08 0 l0 10.86 z"
+                id="path34" />
+           </g>
+           <g
+              id="SvgjsG1588"
+              featurekey="sloganFeature-0"
+              transform="matrix(1.4408374951477043,0,0,1.4408374951477043,61.674429480417544,200.64314225332538)"
+              fill="#4c5d6d" />
+         </svg>
+         <div id="clock"><b id="lu">00.00.00 00:00:00</b><p>
+            <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 346.35"><path fill-rule="nonzero" fill="currentcolor" d="M410.1 346.35 256 201.69 101.9 346.35 0 240.31 256 0l256 240.31z"/></svg>
+            <strong id="lr">00.00.00 00:00:00</strong></p><p>
+            <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 346.35"><path fill-rule="nonzero" fill="currentcolor" d="M410.1 0 256 144.66 101.9 0 0 106.04l256 240.31 256-240.31z"/></svg>
+            <strong id="lw">00.00.00 00:00:00</strong></p></div>
+         </p>
+         <form id="configForm" method="post" onsubmit="event.preventDefault()" onkeydown="return event.key!='Enter'">
+         <h1>Networking
+
+            <svg class="save" onclick="writeConfig()" fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 407.096 407.096" xml:space="preserve">
+               <g fill="currentcolor">
+                     <path d="M402.115,84.008L323.088,4.981C319.899,1.792,315.574,0,311.063,0H17.005C7.613,0,0,7.614,0,17.005v373.086    c0,9.392,7.613,17.005,17.005,17.005h373.086c9.392,0,17.005-7.613,17.005-17.005V96.032    C407.096,91.523,405.305,87.197,402.115,84.008z M300.664,163.567H67.129V38.862h233.535V163.567z"/>
+                     <path d="M214.051,148.16h43.08c3.131,0,5.668-2.538,5.668-5.669V59.584c0-3.13-2.537-5.668-5.668-5.668h-43.08    c-3.131,0-5.668,2.538-5.668,5.668v82.907C208.383,145.622,210.92,148.16,214.051,148.16z"/>
+               </g>
+            </svg>
+
+
+         </h1>
+         <div class="fields">
+            <div class="input-field">
+                <label>Access point</label>
+                <label class="toggle" for="myToggle">
+                  <input class="toggle__input" name="standalone" type="checkbox" id="myToggle">
+                  <div class="toggle__fill"></div>
+                </label>            
+            </div>
+            <div class="input-field">
+                <label>SSID</label>
+                <input type="text" name="ssid" placeholder="Enter SSID" required>
+            </div>
+            <div class="input-field">
+                <label>PASSWORD</label>
+                <input type="password" name="wifipass" placeholder="SECRET" required>
+            </div>
+            <div class="input-field">
+                <label>CIDR</label>
+                <input type="text" name="cidr" placeholder="Enter your IP/CIDR"  
+                onfocus="this.old=this.value" onchange="if (!checkCIDR(this.value)) this.value=this.old" required>
+            </div>
+            <div class="input-field">
+               <label>Gateway</label>
+               <input type="text" name="gw" placeholder="Enter default gateway IP" 
+               onfocus="this.old=this.value" onchange="if (!checkIP(this.value)) this.value=this.old"required>
+            </div>
+            <div class="input-field">
+               <label>DNS</label>
+               <input type="text" name="dns" placeholder="Enter primary DNS IP" 
+               onfocus="this.old=this.value" onchange="if (!checkIP(this.value)) this.value=this.old"required>
+            </div>
+         </div>
+      </form>
+      <h1>DEVICES</h1>
+      <p><div id="devices" class="cards"></div></p>
+      <h1>PLACES</h1>
+      <div class="places"><input id="data" type="text" value="111"/></div>
+      <p id="pins"></p>
+      <h1>SCANS</h1>      
+<p><table id="tab">
+   <thead>
+      <tr><th>TIME</th><th>PLACE</th><th>CODE</th></tr>
+   </thead>
+   <tbody id="scant"></tbody>
+</table></p>
+      <h1></h1>
+  </section>
+  <footer>(c) 2023 - Serhii Nesterenko</footer>
+  <script>
+   let config
+   let models
+   let table
+   readConfig()
+   readModels()
+   readTable()
+   if (!!window.EventSource) {
+      var source = new EventSource('/events');
+      source.addEventListener('open', function(e) {
+        console.log("Events Connected");
+      }, false);
+      source.addEventListener('error', function(e) {
+        if (e.target.readyState != EventSource.OPEN) {
+          console.log("Events Disconnected");
+        }
+      }, false);
+      source.addEventListener('scan', function(e) {
+         const s = JSON.parse(e.data);
+         console.log(s);
+         addScan(s);
+      }, false);
+      source.addEventListener('status', function(e) {
+         const s = JSON.parse(e.data);
+         console.log(s);
+         if (s.devices) {
+            updateDeviceCards(s.devices)
+         }
+         updateConnectionStatus(s.status)
+         updateClock(s)
+      }, false);
+   }
+   const KEYS = ["ssid", "wifipass", "cidr", "gw"]
+   const regexExpIP = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
+   const regexExpCIDR = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[12][0-9]|3[0-2])$/;
+   function checkIP(value) {
+      console.log(value)
+      if (!regexExpIP.test(value)) {
+         alert("Bad IP")
+         return false
+      }
+      return true
+   }
+   function checkCIDR(value) {
+      console.log(value)
+      if (!regexExpCIDR.test(value)) {
+         alert("Bad CIDR")
+         return false
+      }
+      return true
+   }
+   function updateClock(l) {
+      if (l.u) document.getElementById("lu").innerHTML = formatDate(l.u)
+      if (l.w) document.getElementById("lw").innerHTML = formatDate(l.w)
+      if (l.r) document.getElementById("lr").innerHTML = formatDate(l.r)
+   }
+
+   let devs = [
+  {
+    "address": "5e:d4:4b:55:0c:23",
+    "service": ""
+  },
+  {
+    "address": "d0:03:df:b7:eb:55",
+    "service": ""
+  },
+  {
+    "address": "aa:a8:a2:15:78:d9",
+    "service": "0000feea-0000-1000-8000-00805f9b34fb"
+  }
+  ];
+   /*addScan({"t": 1693895605, "pin": "A2", "code": "sdjlfksd lskdj"})
+   addScan({"t": 1693883881, "pin": "A2", "code": "https://google.com"})
+   addScan({"t": 1693882881, "pin": "B1", "code": "test 23 TD-2"})*/
+   updateClock({"u": new Date().getTime()/1000})
+     
+   function updateDeviceCards(dev) {
+      const devcards = document.getElementById("devices")
+      const n = devcards.children.length;
+         for (let i=n; i < dev.length; i++) {
+            let model = models[dev[i].service] ?? { "name" : "unknown", "icon" : "unknown.png"}; 
+            let templ = document.createElement('template')
+            dev[i].charact = model.char
+            templ.innerHTML = `<a class="card" data-address="${dev[i].address}">
+               <div class="card-header"><h3>${model.name}</h3></div>
+               <div class="card-hero"><img src="${model.icon}" /></div>
+               <div class="card-header"><h3>${dev[i].address}</h3></div>
+               <div class="card-body"><p>${dev[i].service === "" ? "no suitable service" : dev[i].service}</p></div>
+               </a>`.trim()
+            templ.content.firstChild.addEventListener('click', () => connectDevice(dev[i]))
+            devcards.append(templ.content.firstChild)
+         }
+   }
+   function formatDate(date) {
+      let d = new Date(date*1000);
+      d = [
+         '0' + d.getDate(),
+         '0' + (d.getMonth() + 1),
+         '' + d.getFullYear(),
+         '0' + d.getHours(),
+         '0' + d.getMinutes(),
+         '0' + date % 60
+      ].map(component => component.slice(-2)); // take last 2 digits of every component
+      return d.slice(0, 3).join('.') + ' ' + d.slice(3, 6).join(':');
+   }
+   function addScan(s) {
+      const scantable = document.getElementById("scant")
+      let templ = document.createElement('template')
+      let tm = formatDate(s.t)
+      templ.innerHTML = `<tr><td>${tm}</td><td>${s.pin}</td><td>${s.code}</td></tr>`.trim()
+      updateClock({"u": s.t})
+      scantable.append(templ.content.firstChild)
+   }
+   function findDevice(addr) {
+      const devcards = document.getElementById("devices")
+      for (let i=0; i<devcards.children.length; i++) {
+         if (devcards.children[i].dataset.address === addr) {
+            return devcards.children[i]
+         }
+      }
+      return null
+   }
+   function selectPin(i) {
+      document.getElementById('data').value = table[config.pins[i]]?.join(';') ?? ''
+      blinkPin(i)
+   }
+   function createPin(i) {
+      let templ = document.createElement('template')
+      templ.innerHTML = `<input type="text" placeholder="${i}" value="${config.pins[i] ?? ''}"/>`
+      templ.content.firstChild.addEventListener('focus', () => selectPin(i))
+      document.getElementById("pins").append(templ.content.firstChild)
+   }
+   function connectDevice(dev) {
+      if (dev.address === config.addr) {
+         dev = {"address" : "", "service" : "", "charact" : ""}
+      }
+      fetch("/api/setDevice", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dev)
+      }).catch(alert)
+      config.addr = dev.address
+      config.service = dev.service
+      config.charact = dev.charact
+      updateConnectionStatus(0)
+   }
+   function blinkPin(i) {
+      fetch("/api/blink", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"pin": i})
+      }).catch(alert)
+   }
+   function readConfig() {
+      fetch('config.json')
+       .then((response) => response.json())
+       .then((json) => {
+         console.log(json)
+         config = json
+         for (let i=0;i<48;i++)
+           createPin(i)
+         document.getElementById('configForm').standalone.checked = config.standalone
+         for (key of KEYS) document.getElementsByName(key)[0].value = config[key] 
+       })
+   }
+   function readModels() {
+      fetch('models.json')
+       .then((response) => response.json())
+       .then((json) => {
+         console.log(json)
+         models = json
+         //updateDeviceCards(devs)
+         //updateConnectionStatus(1)
+      })
+   }
+   function readTable() {
+      fetch('table.json')
+       .then((response) => response.json())
+       .then((json) => {
+         console.log(json)
+         table = json
+      })
+   }
+   function updateConnectionStatus(s) {
+      const devcards = document.getElementById("devices")
+      const c = s === 0 ? "init" : s === 1 ? "nconn" : "conn"
+      for (let i=0; i<devcards.children.length; i++) {
+         devcards.children[i].classList.remove("conn", "nconn", "init");
+         if (devcards.children[i].dataset.address === config?.addr) {
+            devcards.children[i].classList.add(c)
+         } 
+      }
+   }
+   function writeConfig() {
+      config.standalone = document.getElementsByName("standalone")[0]?.checked 
+      for (key of KEYS) config[key] = document.getElementsByName(key)[0]?.value
+      console.log("config update:", config)
+      fetch("/api/writeConfig?reboot=true", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(config)
+      }).catch(alert)
+   }
+  </script>
+  </body>
+</html>
