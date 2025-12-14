@@ -357,12 +357,38 @@ Two PCB variants:
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2023 Serhii Nesterenko
+
+Attribution to the original author must be maintained in any derivative works or distributions.
 
 ## Contributing
 
-[Specify contribution guidelines here]
+Contributions are welcome! Here's how you can help:
+
+### Reporting Issues
+- Use the issue tracker to report bugs
+- Provide detailed information: hardware setup, configuration, and steps to reproduce
+- Include serial monitor output when relevant
+
+### Submitting Changes
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+   - Follow the existing code style
+   - Test your changes thoroughly
+   - Update documentation as needed
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to your branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+### Development Guidelines
+- Test on actual hardware when possible
+- Keep commits focused and atomic
+- Update the README if adding new features or changing behavior
+- Maintain backward compatibility with existing configurations
 
 ## Support
 
-For issues, questions, or contributions, please [specify contact method or issue tracker].
+For questions, issues, or feature requests, please use the GitHub issue tracker.

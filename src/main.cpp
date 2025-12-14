@@ -1,7 +1,7 @@
 /*
  * PutToLight - Main Application File
  *
- * Copyright (c) 2025 Serhii Nesterenko
+ * Copyright (c) 2023 Serhii Nesterenko
  * Licensed under the MIT License. See LICENSE file in the project root.
  */
 
