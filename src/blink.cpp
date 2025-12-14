@@ -1,3 +1,10 @@
+/*
+ * PutToLight - LED Blink Control Module
+ *
+ * Copyright (c) 2025 Serhii Nesterenko
+ * Licensed under the MIT License. See LICENSE file in the project root.
+ */
+
 #include <Wire.h>
 #include "DFRobot_CH423.h"
 #include "ptl.hpp"

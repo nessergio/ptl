@@ -1,3 +1,10 @@
+/*
+ * PutToLight - BLE Scanner Communication Module
+ *
+ * Copyright (c) 2025 Serhii Nesterenko
+ * Licensed under the MIT License. See LICENSE file in the project root.
+ */
+
 #include "NimBLEDevice.h"
 #include "NimBLEScan.h"
 #include "ptl.hpp"

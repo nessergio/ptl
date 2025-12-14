@@ -1,3 +1,10 @@
+/*
+ * PutToLight - Main Header File
+ *
+ * Copyright (c) 2025 Serhii Nesterenko
+ * Licensed under the MIT License. See LICENSE file in the project root.
+ */
+
 #include <ArduinoJson.h>
 
 // Shift register pins

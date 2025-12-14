@@ -1,3 +1,10 @@
+/*
+ * PutToLight - Time and Logging Module
+ *
+ * Copyright (c) 2025 Serhii Nesterenko
+ * Licensed under the MIT License. See LICENSE file in the project root.
+ */
+
 #include "ptl.hpp"
 #include <time.h>
 
